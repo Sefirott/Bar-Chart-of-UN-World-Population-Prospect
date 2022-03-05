@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { csv, arc, pie, scaleBand, scaleLinear, max, format} from "https://cdn.skypack.dev/d3";
+import * as d3 from "d3";
 import { useData } from "./useData";
 import { AxisBottom } from "./AxisBottom";
 import { AxisLeft } from "./AxisLeft";
@@ -18,16 +18,16 @@ const App = () => {
 
     const yValue = d => d.Country;
     const xValue = d => d.Population;
-    const siFormat = format(".2s");
+    const siFormat = d3.format(".2s");
     const tFormat = tValue => siFormat(tValue).replace("G", "B");
 
-const yScale = scaleBand()
+const yScale = d3.scaleBand()
     .domain(data.map(yValue))
     .range([0, innerHeight])
     .paddingInner(0.15);
 
 
-const xScale = scaleLinear()
+const xScale = d3.scaleLinear()
     .domain([0, max(data, xValue)])
     .range([0, innerWidth]);
 
